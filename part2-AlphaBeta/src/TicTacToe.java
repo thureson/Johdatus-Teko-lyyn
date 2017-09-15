@@ -20,7 +20,7 @@ public class TicTacToe implements AlphaBetaNode {
 
     @Override
     public ArrayList<AlphaBetaNode> generateChildren() {
-        return new ArrayList<>(); // Implement this
+        return new ArrayList<>(); // Implement thi
     }
 
     @Override
