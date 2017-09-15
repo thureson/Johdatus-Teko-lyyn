@@ -1,0 +1,1 @@
+[{"className":"fi.helsinki.cs.travelplanner.TravelPlannerTest","methodName":"findRouteReturnsTheCorrectThing","pointNames":["TravelPlanner"],"status":"PASSED"}]
