@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class TicTacToe implements AlphaBetaNode {
     boolean crossesTurn;
@@ -12,15 +14,78 @@ public class TicTacToe implements AlphaBetaNode {
         this.state = state;
         this.crossesTurn = crossesTurn;
     }
+    
+    public boolean getCrossesturn(){
+        return this.crossesTurn;
+    }
 
     @Override
     public int value() {
+//        if (row()){
+//            return 1;
+//        } else if (!state.contains("?")){
+//            return 0;
+//        }
         return -1; // Implement this
+    }
+    
+    public TicTacToePosition getAsPosition(){
+        return new TicTacToePosition(state, null, crossesTurn);
     }
 
     @Override
     public ArrayList<AlphaBetaNode> generateChildren() {
-        return new ArrayList<>(); // Implement thi
+//        TicTacToePosition root = new TicTacToePosition(state, null);
+//        generateStates(root);
+//        printTree(root);
+        return new ArrayList<>(); // Implement this
+    }
+    
+    public void testArea(){
+        TicTacToePosition root = new TicTacToePosition(state, null, crossesTurn);
+        generateStates(root);
+        printTree(root);
+    }
+    
+    public void printTree(TicTacToePosition t){
+        System.out.println(t + "   " + row(t.getState()));
+        if (row(t.getState())){
+            return;
+        }
+        List<TicTacToePosition> pos = t.getChildren();
+        for (int i = 0; i < pos.size(); i++){
+            printTree(pos.get(i));
+        }
+    }
+    
+    public void generateStates(TicTacToePosition t){
+        String stateT = t.getState();
+        if (crossesTurn){
+            for (int i = 0; i < 9; i++){
+                if (stateT.charAt(i) == '?'){
+                    StringBuilder replacement = new StringBuilder(stateT);
+                    replacement.setCharAt(i, 'x');
+                    TicTacToePosition child = new TicTacToePosition(replacement.toString(), t, crossesTurn);
+                    t.addChild(child);
+                }
+            }         
+            crossesTurn = false;
+        } else {
+            for (int i = 0; i < 9; i++){
+                if (stateT.charAt(i) == '?'){
+                    StringBuilder replacement = new StringBuilder(stateT);
+                    replacement.setCharAt(i, 'o');
+                    TicTacToePosition child = new TicTacToePosition(replacement.toString(), t, crossesTurn);
+                    t.addChild(child);
+                }
+            }
+            crossesTurn = true;
+        }
+        
+        List<TicTacToePosition> children = t.getChildren();
+        for (int i = 0; i < children.size(); i++){
+            generateStates(children.get(i));
+        }
     }
 
     @Override
@@ -56,5 +121,27 @@ public class TicTacToe implements AlphaBetaNode {
     @Override
     public boolean isMaxNode() {
         return crossesTurn;
+    }
+    
+    public boolean row(String state){
+        if (state.matches("xxx......") || state.matches("ooo......")){
+            return true;
+        } else if (state.matches("...xxx...") || state.matches("...ooo...")){
+            return true;
+        } else if (state.matches("......xxx") || state.matches("......ooo")){
+            return true;
+        } else if (state.matches("x...x...x") || state.matches("o...o...o")){
+            return true;
+        } else if (state.matches("..x.x.x..") || state.matches("..o.o.o..")){
+            return true;
+        } else if (state.matches("x..x..x..") || state.matches("o..o..o..")){
+            return true;
+        } else if (state.matches(".x..x..x.") || state.matches(".o..o..o.")){
+            return true;
+        } else if (state.matches("..x..x..x") || state.matches("..o..o..o")){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
