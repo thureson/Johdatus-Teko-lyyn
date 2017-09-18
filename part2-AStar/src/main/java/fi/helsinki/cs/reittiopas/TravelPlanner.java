@@ -33,9 +33,13 @@ public class TravelPlanner {
             closed.add(temp);
             Collection<Stop> nbsCollection = temp.getStop().getNeighbors();
             List<Stop> nbs = new ArrayList(nbsCollection);
+            int time = 1;
+            while ((temp.getCurrentTime()+time) % 10 != 0){
+                time++;
+            }
             for (int i = 0; i < nbs.size(); i++){
                 Stop nb = nbs.get(i);
-                State nbState = new State(nb, temp, temp.getCurrentTime());
+                State nbState = new State(nb, temp, temp.getCurrentTime()+time);
                 if (closed.contains(nbState)){
                     continue;
                 }
