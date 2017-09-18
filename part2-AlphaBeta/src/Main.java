@@ -6,12 +6,12 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        String startPosition = "xx?" + "o??" + "o??";
+        String startPosition = "???" + "???" + "???";
         TicTacToe r = new TicTacToe(startPosition, true);
         System.out.println(r);
-        r.generateStates(r.getAsPosition());
-        System.out.println(minimax(r.getAsPosition(), true));
-        play(r);
+        TicTacToePosition orig = r.getAsPosition();
+        r.generateStates(orig);
+        System.out.println(minimax(orig, true));
    
     }
 
@@ -22,7 +22,7 @@ public class Main {
     
     private static int minimax(TicTacToePosition t, boolean cross){
         if (t.isLeaf()){
-            if (cross){
+            if (!cross){
                 return t.value();
             }
             return 0 - t.value();

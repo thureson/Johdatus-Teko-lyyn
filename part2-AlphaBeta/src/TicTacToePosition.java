@@ -52,9 +52,8 @@ public class TicTacToePosition {
     public int value(){
         if (row()){
             return 1;
-        } else {
-            return 0;
         }
+        return 0;
     }
     
     public boolean isLeaf(){
