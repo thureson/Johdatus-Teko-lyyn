@@ -1,0 +1,1 @@
+[{"className":"perceptron.PerceptronTest","methodName":"classificationAccuracyIsGoodEnough","pointNames":["Perceptron"],"status":"PASSED"}]
